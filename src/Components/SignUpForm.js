@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setError, selectError } from "../redux/authSlice";
 
 function SignUpForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const error = useSelector(selectError);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -13,9 +17,7 @@ function SignUpForm() {
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState({
-    registerError: "",
-  });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,8 +75,7 @@ function SignUpForm() {
         .then((res) => {
           console.log("res.data", res.data);
           if (res.data === "User Already registered") {
-            setErrors((prev) => ({ ...prev, registerError: res.data }));
-            console.log("errors.register", errors.register);
+            dispatch(setError(res.data));
           } else {
             navigate("/success");
           }
@@ -87,9 +88,7 @@ function SignUpForm() {
 
   return (
     <div className="form-container">
-      {errors.registerError && (
-        <div className="top-error">{errors.registerError}</div>
-      )}
+      {error && <div className="top-error">{error}</div>}
       <form onSubmit={handleSubmit} className="form-content">
         <h2>Sign Up</h2>
         <div className="form-group">

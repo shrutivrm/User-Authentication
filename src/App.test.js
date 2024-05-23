@@ -1,8 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import App from "./App";
 import SignUpForm from "./Components/SignUpForm";
-import Success from "./Components/Success";
-import Login from "./Components/Login";
 import { MemoryRouter } from "react-router-dom";
 
 describe("Text cases for app component", () => {

@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import "./style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setError, selectError } from "../redux/authSlice";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const error = useSelector(selectError);
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-    loginError: "",
-  });
+  const [errors, setErrors] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +45,7 @@ function Login() {
           if (res.data === "success") {
             navigate("/success");
           } else {
-            setErrors((prev) => ({ ...prev, loginError: res.data }));
+            dispatch(setError(res.data));
           }
         })
         .catch((Err) => console.error(Err));
@@ -60,9 +61,7 @@ function Login() {
 
   return (
     <div className="form-container">
-      {errors.loginError && (
-        <div className="top-error">{errors.loginError}</div>
-      )}
+      {error && <div className="top-error">{error}</div>}
       <form onSubmit={handleSubmit} className="form-content">
         <h2>Login</h2>
         <div className="form-group">

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import SignUpForm from "../Components/SignUpForm.jsx";
+import SignUpForm from "../Components/SignUpForm";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
