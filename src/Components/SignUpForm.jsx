@@ -62,7 +62,7 @@ function SignUpForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
-    console.log("validationErrors", validationErrors);
+
     if (Object.keys(validationErrors).length === 0) {
       axios
         .post("http://localhost:3001/", {
@@ -138,7 +138,7 @@ function SignUpForm() {
             <p className="error">{errors.confirmPassword}</p>
           )}
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit">SignUp</button>
       </form>
       <div>
         <span>
